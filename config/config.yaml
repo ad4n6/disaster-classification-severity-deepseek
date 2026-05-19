@@ -1,0 +1,39 @@
+# config/config.yaml
+data:
+  train_dir: "/content/drive/MyDrive/Capstone/dataset/Memet/indonesia/train"        # path di Colab (mount GDrive)
+  test_dir: "/content/drive/MyDrive/Capstone/dataset/Memet/indonesia/test"
+  image_size: [240, 240]
+  batch_size: 32
+  num_classes: 3
+
+model:
+  backbone: "EfficientNetB1"
+  dropout: 0.35
+  dense_units: 256
+  l2_reg: 0.0001
+
+loss:
+  name: "OrdinalFocalLoss"
+  gamma: 2.0
+  alpha: 0.25
+  delta: 0.1   # ordinal penalty strength
+
+training:
+  phase1_epochs: 15
+  phase2_epochs: 20
+  learning_rate_phase1: 0.001
+  learning_rate_phase2: 0.00001
+  weight_decay: 0.0001
+  gradient_clip_norm: 1.0
+  mixed_precision: true
+
+augmentation:
+  random_flip: "horizontal"
+  random_rotation: 0.1          # ±0.1 * 2π rad
+  random_zoom: 0.1
+  random_contrast: 0.1
+
+output:
+  model_dir: "models/"
+  log_dir: "logs/"
+  final_model_name: "building_damage_model.keras"
